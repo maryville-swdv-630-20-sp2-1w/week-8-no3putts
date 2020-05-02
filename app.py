@@ -1,8 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 import logging
-import util.LoadRooms as LoadRooms
-from util.Database import Database
 
 app = Flask(__name__)
 api = Api(app)
@@ -21,10 +19,12 @@ from api import RoomController
 
 
 # If we're running in stand alone mode, run the application
-if __name__ == '__main__':
-    d = Database()
-    LoadRooms.RoomLoader.createRooms(d)
+# if __name__ == '__main__':
+def main():
+    print('******************************************')
     app.run(debug=True)
 
     # res = requests.post('http://localhost:5000/api/add_message/1234', json={"mytext": "lalala"})
 
+
+main()

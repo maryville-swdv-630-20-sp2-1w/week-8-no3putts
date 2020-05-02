@@ -1,6 +1,4 @@
 from models.CommonModel import *
-from util.Database import *
-
 
 class Room(Base):
     def __init__(self, name, brand, beds, bedType, type):
