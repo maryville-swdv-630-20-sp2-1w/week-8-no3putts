@@ -7,28 +7,19 @@ from models.Room import *
 class RoomData:
     # Create some test data for our catalog in the form of a list of dictionaries.
     def __init__(self):
-        self.rooms = {"data": [
+        self.stays = {"data": [
             {"id": 10,
-             "name": "Grand Suite",
-             "brand": "Saatva",
-             "beds": 1,
-             "bedtype": "king",
-             "type": "luxury",
-             "available": 1},
+             "resid": 10,
+             "roomid": 10,
+             "custid": 10},
+            {"id": 11,
+             "resid": 11,
+             "roomid": 11,
+             "custid": 11},
             {"id": 12,
-             "name": "Garden Room",
-             "brand": "Beautyrest",
-             "beds": 2,
-             "bedtype": "queen",
-             "type": "deluxe",
-             "available": 5},
-            {"id": 13,
-             "name": "Standard Room",
-             "brand": "Tempurpedic",
-             "beds": 2,
-             "bedtype": "double",
-             "type": "standard",
-             "available": 0}
+             "resid": 12,
+             "roomid": 12,
+             "custid": 12}
         ]}
 
     def findRoomByType(self, type):

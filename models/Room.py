@@ -1,19 +1,10 @@
-from models.CommonModel import *
-
-class Room(Base):
-    def __init__(self, name, brand, beds, bedType, type):
+class Room():
+    def __init__(self, id, name, brand, beds, bedType, type, available):
+        self.id = id
         self.name = name
         self.bedBrand = brand
         self.beds = beds
         self.bedType = bedType
         self.type = type
+        self.available = available
 
-    __tablename__ = 'room'
-
-    # FILEDS
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    bedBrand = Column(String)
-    beds = Column(Integer)
-    bedType = Column(String)
-    type = Column(String)

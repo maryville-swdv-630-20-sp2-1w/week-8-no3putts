@@ -1,7 +1,7 @@
 from app import *
 
 # Create some test data for our catalog in the form of a list of dictionaries.
-books = [
+reservation = [
     {'id': 0,
      'name': 'John Doe',
      'address': '123 Vine St',
@@ -41,7 +41,7 @@ books = [
 @app.route('/reservation', methods=['POST'])
 def reserve():
     app.logger.info('Reservation Complete')
-    return jsonify(books)
+    return jsonify(reservation)
 
 
 @app.route('/reservation/cancel/<id>', methods=['PUT'])
@@ -49,11 +49,6 @@ def cancel(id):
     return "Reservation " + id + " cancelled"
 
 
-@app.route('/reservation/checkin/<id>', methods=['PUT'])
-def checkin(id):
-    return "Reservation " + id + " checkin"
-
-
-@app.route('/reservation/checkout/<id>', methods=['PUT'])
-def checkout(id):
-    return "Reservation " + id + " checkout"
+@app.route('/reservation/<id>', methods=['GET'])
+def info(id):
+    return "Reservation " + id + " cancelled"

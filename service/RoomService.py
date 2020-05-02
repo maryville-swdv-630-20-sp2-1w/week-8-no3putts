@@ -1,3 +1,4 @@
+from CustomExceptions import NoRoomFoundException, NoRoomAvailableException
 from repo.RoomData import RoomData
 
 
@@ -6,4 +7,22 @@ class RoomService:
         self.roomData = RoomData()
 
     def findByType(self, type):
-        return self.roomData.findRoomByType(type)
+        try:
+            return self.roomData.findRoomByType(type)
+        except NoRoomFoundException:
+            print("No room found")
+            return None
+
+    def findByBrand(self, brand):
+        try:
+            return self.roomData.findRoomByBed(brand)
+        except NoRoomFoundException:
+            print("No room found")
+            return None
+
+    def availabiloty(self):
+        try:
+            return self.roomData.availability()
+        except NoRoomAvailableException:
+            print("No available rooms found")
+            return None

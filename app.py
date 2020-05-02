@@ -13,9 +13,10 @@ app = Flask(__name__, template_folder="templates")
 
 # include Controllers and APIs
 from controllers import IndexController
-from api import ReservationController
-from api import AccountController
-from api import RoomController
+from api import ReservationApi
+from api import GuestApi
+from api import RoomApi
+from api import StayApi
 
 
 # If we're running in stand alone mode, run the application

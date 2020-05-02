@@ -1,5 +1,4 @@
-
-import jsobj as jsobj
+from json import dumps as jsonstring
 from flask import json
 
 from app import *
@@ -42,18 +41,18 @@ def findRoomByType(type):
     rec = room.roomService.findByType(type)
 
     # rec = ([a for a in rooms['data'] if a['type'] == type])
-
-    if rec != "":
-        return jsonify(rec)
+    print(rec)
+    if rec is not None:
+        return jsonify(rec.__dict__)
     else:
         return "No record found"
 
 
-@app.route('/room/brand/<brand>', methods=['GET'])
-def findRoomByBed(brand):
+@app.route('/room/bed/brand/<brand>', methods=['GET'])
+def findRoomByBrand(brand):
     rec = ([a for a in rooms['data'] if a['brand'] == brand])
 
-    if rec != "":
+    if rec is not None:
         return jsonify(rec)
     else:
         return "No record found"
@@ -62,24 +61,11 @@ def findRoomByBed(brand):
 @app.route('/room/available', methods=['GET'])
 def availability():
     app.logger.info('Checking Availability')
-    room_json = json.loads(json.dumps(rooms))
 
-    avail_rooms = []
-    for r in room_json['data']:
-        if r['available'] > 0:
-            avail_rooms.append(r)
+    room = RoomApi()
+    recs = room.roomService.availabiloty()
 
-    app.logger.info('Available Rooms')
-    for x in avail_rooms:
-        print(x)
-
-    return jsonify(avail_rooms)
-
-
-@app.route('/room/checkin/<id>', methods=['PUT'])
-def book(id):
-    req_data = request.get_json()
-
-
-    profile["data"].append(req_data)
-    return "Added record: {0}, name: {1} ".format(req_data["id"], req_data["name"])
+    if recs is not None:
+        return jsonify(recs)
+    else:
+        return "No available rooms found"
