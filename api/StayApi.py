@@ -40,7 +40,6 @@ reservation = [
 
 @app.route('/api/stay/in/<resid>', methods=['POST'])
 def checkin(resid):
-    app.logger.info('Checkin Complete')
     return jsonify(reservation)
 
 

@@ -32,8 +32,6 @@ def findRoomByBrand(brand):
 
 @app.route('/api/room/available', methods=['GET'])
 def availability():
-    app.logger.info('Checking Availability')
-
     room = RoomApi()
     recs = room.roomService.availability()
 

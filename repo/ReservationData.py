@@ -1,50 +1,16 @@
 # Mimic Some Data store
 from CustomExceptions import NoRoomFoundException
 from models.Room import Room
+import app
 
 
 class ReservationData:
     # Create some test data for our catalog in the form of a list of dictionaries.
     def __init__(self):
-        self.reservations = {"data": [
-            {'id': 0,
-             'name': 'John Doe',
-             'address': '123 Vine St',
-             'City': 'CityVille.',
-             'state': 'AL',
-             'zip': '91222',
-             'checkin': '07/05/2020',
-             'checkout': '07/10/2020',
-             'guests': 4,
-             'roomType': 'queen',
-             'roomClass': 'standard'},
-            {'id': 2,
-             'name': 'John Doe',
-             'address': '123 Vine St',
-             'City': 'CityVille.',
-             'state': 'AL',
-             'zip': '91222',
-             'checkin': '07/05/2020',
-             'checkout': '07/10/2020',
-             'guests': 4,
-             'roomType': 'queen',
-             'roomClass': 'standard'},
-            {'id': 3,
-             'name': 'John Doe',
-             'address': '123 Vine St',
-             'City': 'CityVille.',
-             'state': 'AL',
-             'zip': '91222',
-             'checkin': '07/05/2020',
-             'checkout': '07/10/2020',
-             'guests': 4,
-             'roomType': 'queen',
-             'roomClass': 'standard'}
-        ]}
+        pass
 
     def findRoomByType(self, type):
-
-        rec = ([a for a in self.reservations['data'] if a['type'] == type])
+        rec = ([a for a in app.reservations['data'] if a['type'] == type])
         return self.__mapToRoom(rec)
 
     def findRoomByBed(self, brand):

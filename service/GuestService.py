@@ -6,10 +6,13 @@ class GuestService:
         self.guestData = GuestData()
 
     def createProfile(self, data):
-        return self.guestData.creareProfile(data)
+        return self.guestData.createProfile(data)
 
-    def deleteProfile(self, data):
-        pass
+    def deleteProfile(self, id):
+        return self.guestData.deleteProfile(id)
+
+    def findAllGuest(self):
+        return self.guestData.findAllGuest()
 
     def updateProfile(self, data):
         pass

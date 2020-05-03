@@ -2,53 +2,32 @@ from flask import json
 
 from CustomExceptions import NoRoomFoundException, NoRoomAvailableException
 from models.Room import *
+import app
+
 
 # Mimic Some Data store
 class RoomData:
     # Create some test data for our catalog in the form of a list of dictionaries.
     def __init__(self):
-        self.rooms = {"data": [
-            {"id": 10,
-             "name": "Grand Suite",
-             "brand": "Saatva",
-             "beds": 1,
-             "bedtype": "king",
-             "type": "luxury",
-             "available": 1},
-            {"id": 12,
-             "name": "Garden Room",
-             "brand": "Beautyrest",
-             "beds": 2,
-             "bedtype": "queen",
-             "type": "deluxe",
-             "available": 5},
-            {"id": 13,
-             "name": "Standard Room",
-             "brand": "Tempurpedic",
-             "beds": 2,
-             "bedtype": "double",
-             "type": "standard",
-             "available": 0}
-        ]}
+        pass
 
     def findRoomByType(self, type):
-
-        rec = ([a for a in self.rooms['data'] if a['type'] == type])
+        rec = ([a for a in app.rooms['data'] if a['type'] == type])
         return self.__mapToRoom(rec)
 
     def findRoomByBrand(self, brand):
-        rec = ([a for a in self.rooms['data'] if a['brand'] == brand])
+        rec = ([a for a in app.rooms['data'] if a['brand'] == brand])
         return self.___mapToRoom(rec)
 
     def availability(self):
-        room_json = json.loads(json.dumps(self.rooms))
+        room_json = json.loads(json.dumps(app.rooms))
 
         avail_rooms = []
         for r in room_json['data']:
             if r['available'] > 0:
                 avail_rooms.append(r)
 
-        if avail_rooms.__len__()>0:
+        if avail_rooms.__len__() > 0:
             return avail_rooms
         else:
             raise NoRoomAvailableException("Sorry, no available rooms found")

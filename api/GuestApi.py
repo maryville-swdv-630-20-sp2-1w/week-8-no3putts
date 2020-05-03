@@ -49,27 +49,26 @@ def createProfile():
     return "Added record: {0}, name: {1} ".format(req_data["id"], req_data["name"])
 
 
-@app.route('/api/profile/<custid>', methods=['PUT'])
+guestApi = GuestApi()
+
+@app.route('/api/guest/<custid>', methods=['PUT'])
 def updateProfile(custid):
-    app.logger.info('Update profile Successful')
     return "Update profile Successful"
 
 
-@app.route('/api/profile/<custid>', methods=['DELETE'])
-def deleteProfile(custid):
-    app.logger.info('Update profile Successful')
-    return "Update profile Successful"
+@app.route('/api/guest/<id>', methods=['DELETE'])
+def deleteProfile(id):
+    guest = guestApi.guestService.deleteProfile(id)
+    return "Deleted record: {0}, name: {1} ".format(guest["id"], guest["name"])
 
 
-@app.route('/api/profile/all', methods=['GET'])
+@app.route('/api/guest', methods=['GET'])
 def getAllProfile():
-    app.logger.info(jsonify(profile))
-    return jsonify(profile)
+    return jsonify(guestApi.guestService.findAllGuest())
 
 
-@app.route('/api/profile/<custid>', methods=['GET'])
+@app.route('/api/guest/<custid>', methods=['GET'])
 def getProfile(custid):
-    app.logger.info("Getting Profile for id: {}".format(custid))
     rec = ([a for a in profile['data'] if a['id'] == int(custid)])
 
     if rec != "":
