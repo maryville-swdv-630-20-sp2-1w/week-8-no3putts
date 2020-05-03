@@ -4,7 +4,7 @@ from CustomExceptions import NoRoomFoundException, NoRoomAvailableException
 from models.Room import *
 
 # Mimic Some Data store
-class RoomData:
+class StayData:
     # Create some test data for our catalog in the form of a list of dictionaries.
     def __init__(self):
         self.stays = {"data": [

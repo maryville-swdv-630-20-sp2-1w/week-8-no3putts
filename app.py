@@ -1,3 +1,4 @@
+import requests
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 import logging
@@ -18,14 +19,11 @@ from api import GuestApi
 from api import RoomApi
 from api import StayApi
 
-
 # If we're running in stand alone mode, run the application
-# if __name__ == '__main__':
-def main():
-    print('******************************************')
+if __name__ == '__main__':
+    print('******************* STARTING STANDALONE ***********************')
     app.run(debug=True)
 
+    # print('********************* TESTING STARTING ************************')
+    # print(" GUEST TEST -- Add")
     # res = requests.post('http://localhost:5000/api/add_message/1234', json={"mytext": "lalala"})
-
-
-main()

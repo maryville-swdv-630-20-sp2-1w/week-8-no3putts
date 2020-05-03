@@ -38,17 +38,17 @@ reservation = [
 ]
 
 
-@app.route('/reservation', methods=['POST'])
+@app.route('/api/reservation', methods=['POST'])
 def reserve():
     app.logger.info('Reservation Complete')
     return jsonify(reservation)
 
 
-@app.route('/reservation/cancel/<id>', methods=['PUT'])
+@app.route('/api/reservation/cancel/<id>', methods=['PUT'])
 def cancel(id):
     return "Reservation " + id + " cancelled"
 
 
-@app.route('/reservation/<id>', methods=['GET'])
+@app.route('/api/reservation/<id>', methods=['GET'])
 def info(id):
     return "Reservation " + id + " cancelled"

@@ -4,6 +4,8 @@ from flask import json
 from app import *
 
 # Create some test data for our catalog in the form of a list of dictionaries.
+from service.GuestService import GuestService
+
 profile = {"data": [
     {"id": 10,
      "name": "John Doe",
@@ -32,38 +34,40 @@ profile = {"data": [
 ]}
 
 
-@app.route('/login', methods=['GET'])
-def login():
-    return "Login Successful"
+class GuestApi:
+    def __init__(self):
+        self.guestService = GuestService()
 
 
-@app.route('/profile/<custid>', methods=['POST'])
-def createProfile(custid):
+@app.route('/api/guest', methods=['POST'])
+def createProfile():
+    guestApi = GuestApi()
     req_data = request.get_json()
-    profile["data"].append(req_data)
+    guest = guestApi.guestService.createProfile(req_data)
+
+    # profile["data"].append(req_data)
     return "Added record: {0}, name: {1} ".format(req_data["id"], req_data["name"])
 
 
-@app.route('/profile/<custid>', methods=['PUT'])
+@app.route('/api/profile/<custid>', methods=['PUT'])
 def updateProfile(custid):
     app.logger.info('Update profile Successful')
     return "Update profile Successful"
 
 
-@app.route('/profile/<custid>', methods=['DELETE'])
+@app.route('/api/profile/<custid>', methods=['DELETE'])
 def deleteProfile(custid):
     app.logger.info('Update profile Successful')
     return "Update profile Successful"
 
 
-
-@app.route('/profile/all', methods=['GET'])
+@app.route('/api/profile/all', methods=['GET'])
 def getAllProfile():
     app.logger.info(jsonify(profile))
     return jsonify(profile)
 
 
-@app.route('/profile/<custid>', methods=['GET'])
+@app.route('/api/profile/<custid>', methods=['GET'])
 def getProfile(custid):
     app.logger.info("Getting Profile for id: {}".format(custid))
     rec = ([a for a in profile['data'] if a['id'] == int(custid)])

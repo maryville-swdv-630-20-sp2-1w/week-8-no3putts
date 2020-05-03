@@ -20,7 +20,7 @@ class RoomService:
             print("No room found")
             return None
 
-    def availabiloty(self):
+    def availability(self):
         try:
             return self.roomData.availability()
         except NoRoomAvailableException:

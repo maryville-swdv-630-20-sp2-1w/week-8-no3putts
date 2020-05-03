@@ -1,8 +1,9 @@
 from CustomExceptions import NoRoomFoundException
+from models.Guest import Guest
 from models.Room import *
 
 # Mimic Some Data store
-class RoomData:
+class GuestData:
     # Create some test data for our catalog in the form of a list of dictionaries.
     def __init__(self):
         self.guests = profile = {"data": [
@@ -32,21 +33,32 @@ class RoomData:
              "phone": "888-555-1212"}
         ]}
 
-    def findRoomByType(self, type):
+    def createProfile(self, data):
+        self.guests["data"].append(data)
 
-        rec = ([a for a in self.guests['data'] if a['type'] == type])
-        return self.__mapToRoom(rec)
+    def findGuestById(self, name):
+        rec = ([a for a in self.guests['data'] if a['id'] == id])
+        return self.___mapToGuest(rec)
 
-    def findRoomByBed(self, brand):
-        rec = ([a for a in self.guests['data'] if a['brand'] == brand])
-        return self.___mapToRoom(rec)
+    def findGuestByName(self, name):
+        rec = ([a for a in self.guests['data'] if a['name'].lower() == name.lower()])
+        return self.___mapToGuest(rec)
 
-    def __mapToRoom(self, rec):
-        if rec != "":
-            room = Room(rec[0]['id'], rec[0]['name'], rec[0]['brand'], rec[0]['beds'], rec[0]['bedtype'],
-                        rec[0]['type'],
-                        rec[0]['available'])
+    def findGuestByEmail(self, email):
+        rec = ([a for a in self.guests['data'] if a['email'].lower() == email.lower()])
+        return self.___mapToGuest(rec)
+
+    def findGuestByPhone(self, phone):
+        rec = ([a for a in self.guests['data'] if a['phone'].lower() == phone.lower()])
+        return self.___mapToGuest(rec)
+
+
+
+    def __mapToGuest(self, rec):
+        if rec is not None:
+            guest = Guest(rec[0]['id'], rec[0]['name'], rec[0]['address'], rec[0]['city'], rec[0]['state'],
+                        rec[0]['zip'], rec[0]['email'],rec[0]['phone'])
         else:
-            raise NoRoomFoundException("Sorry, no room found")
+            raise NoRoomFoundException("Sorry, no guest record found")
 
-        return room
+        return guest
