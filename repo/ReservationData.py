@@ -1,7 +1,7 @@
 # Mimic Some Data store
-from CustomExceptions import NoRoomFoundException
-from models.Room import Room
-import app
+from CustomExceptions import ReservationNotFoundException
+import HRMApp
+from models.Reservation import Reservation
 
 
 class ReservationData:
@@ -9,20 +9,30 @@ class ReservationData:
     def __init__(self):
         pass
 
-    def findRoomByType(self, type):
-        rec = ([a for a in app.reservations['data'] if a['type'] == type])
-        return self.__mapToRoom(rec)
+    def createReservation(self, data):
+        HRMApp.reservations["data"].append(data)
 
-    def findRoomByBed(self, brand):
-        rec = ([a for a in self.reservations['data'] if a['brand'] == brand])
-        return self.___mapToRoom(rec)
+    def deleteReservation(self, id):
+        for i in range(len(HRMApp.reservations['data'])):
+            if HRMApp.reservations['data'][i]['id'] == int(id):
+                del HRMApp.reservations['data'][i]
+                break
 
-    def __mapToRoom(self, rec):
-        if rec != "":
-            room = Room(rec[0]['id'], rec[0]['name'], rec[0]['brand'], rec[0]['beds'], rec[0]['bedtype'],
-                        rec[0]['type'],
-                        rec[0]['available'])
+    def findAllReservation(self):
+        return HRMApp.reservations
+
+    def findReservationById(self, id):
+        rec = ([a for a in HRMApp.reservations['data'] if a['id'] == int(id)])
+        return self.__mapToReservation(rec)
+
+    def findRoomByGuestId(self, id):
+        rec = ([a for a in self.reservations['data'] if a['guestid'] == int(id)])
+        return self.__mapToReservation(rec)
+
+    def __mapToReservation(self, rec):
+        if rec is not None and rec.__len__() > 0:
+            res = Reservation(rec[0]['id'], rec[0]['checkin'], rec[0]['checkout'], rec[0]['roomType'], rec[0]['guestid'])
         else:
-            raise NoRoomFoundException("Sorry, no room found")
+            raise ReservationNotFoundException("Sorry, no reservation found")
 
-        return room
+        return res

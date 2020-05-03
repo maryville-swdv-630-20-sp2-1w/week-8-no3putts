@@ -1,19 +1,20 @@
 # define user-defined exceptions
-from app import *
-
-
 class Error(Exception):
     """Base class for other exceptions"""
     pass
 
 
 class NoRoomAvailableException(Error):
-    app.logger.info('No available rooms found')
+    print('No available rooms found')
 
 
 class NoRoomFoundException(Error):
-    app.logger.info('No rooms found')
+    print('No rooms found')
+
+
+class NoGuestFoundException(Error):
+    print('No guest found')
 
 
 class ReservationNotFoundException(Error):
-    app.logger.info('Reservation rooms found')
+    print('Reservation rooms found')

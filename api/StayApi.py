@@ -1,49 +1,31 @@
-from app import *
+from HRMApp import *
 
-# Create some test data for our catalog in the form of a list of dictionaries.
-reservation = [
-    {'id': 0,
-     'name': 'John Doe',
-     'address': '123 Vine St',
-     'City': 'CityVille.',
-     'state': 'AL',
-     'zip': '91222',
-     'checkin': '07/05/2020',
-     'checkout': '07/10/2020',
-     'guests': 4,
-     'roomType': 'queen',
-     'roomClass': 'standard'},
-    {'id': 2,
-     'name': 'John Doe',
-     'address': '123 Vine St',
-     'City': 'CityVille.',
-     'state': 'AL',
-     'zip': '91222',
-     'checkin': '07/05/2020',
-     'checkout': '07/10/2020',
-     'guests': 4,
-     'roomType': 'queen',
-     'roomClass': 'standard'},
-    {'id': 3,
-     'name': 'John Doe',
-     'address': '123 Vine St',
-     'City': 'CityVille.',
-     'state': 'AL',
-     'zip': '91222',
-     'checkin': '07/05/2020',
-     'checkout': '07/10/2020',
-     'guests': 4,
-     'roomType': 'queen',
-     'roomClass': 'standard'}
-]
+from service.StayService import StayService
+
+
+class StayApi:
+    def __init__(self):
+        self.stayService = StayService()
+
+
+stayApi = StayApi()
 
 
 @app.route('/api/stay/in/<resid>', methods=['POST'])
 def checkin(resid):
-    return jsonify(reservation)
+    return stayApi.stayService.checkin(resid)
 
 
-@app.route('/api/stay/out/<resid>', methods=['PUT'])
-def checkout(resid):
-    return "Checkout " + id
+@app.route('/api/stay/out/<stayid>', methods=['PUT'])
+def checkout(stayid):
+    return stayApi.stayService.checkout(stayid)
 
+
+@app.route('/api/stay', methods=['GET'])
+def findAllStays():
+    rec = stayApi.stayService.findAllStays()
+
+    if rec is not None:
+        return jsonify(rec)
+    else:
+        return "No rooms found"

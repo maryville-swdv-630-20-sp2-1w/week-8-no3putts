@@ -1,7 +1,7 @@
 from flask import render_template
-from app import app
+from HRMApp import app
 
-# Create a URL route in our application for "/"  default to index.html
+# THIS IS A SAMPLE CONTROLLER THAT INTERACTS WITH A FRONT HTML
 @app.route('/')
 def home():
     """
@@ -12,8 +12,3 @@ def home():
     """
     # return render_template('index.html', name ='Jerrie')
     return render_template('index.html')
-
-#
-# # If we're running in stand alone mode, run the application
-# if __name__ == '__main__':
-#     app.run(debug=True)

@@ -1,3 +1,4 @@
+from CustomExceptions import NoGuestFoundException
 from repo.GuestData import GuestData
 
 
@@ -17,8 +18,11 @@ class GuestService:
     def updateProfile(self, data):
         pass
 
-    def findProdileById(self,  id):
-        pass
+    def findProfileById(self,  id):
+        try:
+            return self.guestData.findGuestById(id)
+        except NoGuestFoundException:
+            raise NoGuestFoundException("No record found")
 
     def findProfileByName(self, name):
         pass

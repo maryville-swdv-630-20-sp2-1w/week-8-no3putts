@@ -1,21 +1,27 @@
+from sqlalchemy import Float
+
 from models.CommonModel import *
 
-
-class Customer(Base):
-    def __init__(self, fname, lname, phone, email):
-        self.fname = fname
-        self.lname = lname
-        self.phone = phone
-        self.email = email
+# THIS IS WHAT A TYPICACAL MODEL SHOULD LOOK LIKE THAT MAPS TO A TABLE VIA ORM
+class Biil(Base):
+    def __init__(self, custid, stayid, extras, roomCharge, tax ):
+        self.custid = custid
+        self.stayid = stayid
+        self.extras = extras
+        self.roomCharge = roomCharge
+        self.subtotal = 0.00
+        self.tax = tax
+        self.total = 0.0
 
     __tablename__ = 'customer'
 
     # FILEDS
     id = Column(Integer, primary_key=True)
-    fname = Column(String)
-    lname = Column(String)
-    phone = Column(String)
-    email = Column(String)
+    custid = Column(Integer)
+    stayid = Column(Integer)
+    extras = Column(Float)
+    roomCharge = Column(Float)
+    tax = Column(Float)
 
     def getInfo(self):
         raise NotImplementedError()

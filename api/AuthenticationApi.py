@@ -1,9 +1,13 @@
 import jsobj as jsobj
 from flask import json
 
-from app import *
+from HRMApp import *
 
-@app.route('/login', methods=['GET'])
+
+class Authentication:
+    pass
+
+
+@app.route('/api/login', methods=['GET'])
 def login():
     return "Login Successful"
-

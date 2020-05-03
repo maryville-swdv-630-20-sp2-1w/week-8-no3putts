@@ -20,6 +20,9 @@ class RoomService:
             print("No room found")
             return None
 
+    def findAllRoom(self):
+        return self.roomData.findAllRooms()
+
     def availability(self):
         try:
             return self.roomData.availability()

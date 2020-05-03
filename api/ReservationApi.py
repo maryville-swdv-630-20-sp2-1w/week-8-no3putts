@@ -1,53 +1,34 @@
-from app import *
+from HRMApp import *
+from service.ReservationService import ReservationService
 
-# Create some test data for our catalog in the form of a list of dictionaries.
-reservation = [
-    {'id': 0,
-     'name': 'John Doe',
-     'address': '123 Vine St',
-     'City': 'CityVille.',
-     'state': 'AL',
-     'zip': '91222',
-     'checkin': '07/05/2020',
-     'checkout': '07/10/2020',
-     'guests': 4,
-     'roomType': 'queen',
-     'roomClass': 'standard'},
-    {'id': 2,
-     'name': 'John Doe',
-     'address': '123 Vine St',
-     'City': 'CityVille.',
-     'state': 'AL',
-     'zip': '91222',
-     'checkin': '07/05/2020',
-     'checkout': '07/10/2020',
-     'guests': 4,
-     'roomType': 'queen',
-     'roomClass': 'standard'},
-    {'id': 3,
-     'name': 'John Doe',
-     'address': '123 Vine St',
-     'City': 'CityVille.',
-     'state': 'AL',
-     'zip': '91222',
-     'checkin': '07/05/2020',
-     'checkout': '07/10/2020',
-     'guests': 4,
-     'roomType': 'queen',
-     'roomClass': 'standard'}
-]
+
+class ReservationApi:
+    def __init__(self):
+        self.reservationService = ReservationService()
+
+
+reservationApi = ReservationApi()
 
 
 @app.route('/api/reservation', methods=['POST'])
 def reserve():
-    return jsonify(reservation)
+    req_data = request.get_json()
+    reservationApi.reservationService.createReservation(req_data)
+
+    return "Added reservation id: {0} for guest: {1} with a {2} room.".format(req_data["id"],
+                                                                              req_data["guestid"], req_data["roomType"])
 
 
-@app.route('/api/reservation/cancel/<id>', methods=['PUT'])
+@app.route('/api/reservation/cancel/<id>', methods=['DELETE'])
 def cancel(id):
-    return "Reservation " + id + " cancelled"
+    return reservationApi.reservationService.cancelReservation(id)
 
 
 @app.route('/api/reservation/<id>', methods=['GET'])
 def info(id):
-    return "Reservation " + id + " cancelled"
+    return jsonify(reservationApi.reservationService.findReservationById(id).__dict__)
+
+
+@app.route('/api/reservation', methods=['GET'])
+def findAll():
+    return reservationApi.reservationService.findAllReservations()
